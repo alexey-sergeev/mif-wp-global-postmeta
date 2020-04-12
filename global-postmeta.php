@@ -89,12 +89,12 @@ function get_global_postmeta( $site_id, $post_id, $meta_key = false, $single = f
 
     }
 
-    if ( ! $meta_key ) return ( $data );
+    if ( ! $meta_key ) return ( array_map( 'maybe_unserialize', $data ) );
 
     if ( isset( $data[$meta_key] ) ) {
 
 		if ( $single ) {
-
+            
             return maybe_unserialize( $data[$meta_key][0] );
 
         } else {
