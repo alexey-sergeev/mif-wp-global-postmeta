@@ -45,13 +45,14 @@ function update_global_postmeta( $site_id, $post_id, $meta_key, $meta_value, $pr
     $site_id = absint( $site_id );
     $post_id = absint( $post_id );
 
-	$meta_key = wp_unslash( $meta_key );
-	$meta_value = maybe_serialize( wp_unslash( $meta_value ) );
-	$prev_value = maybe_serialize( wp_unslash( $prev_value ) );
-
+    $meta_key = wp_unslash( $meta_key );
+    
     $old_data = get_global_postmeta( $site_id, $post_id, $meta_key );
     if ( ( count( $old_data ) == 1 ) && ( $old_data[0] === $meta_value ) ) return false;
     if ( count( $old_data ) == 0 ) return add_global_postmeta( $site_id, $post_id, $meta_key, $meta_value );
+
+	$meta_value = maybe_serialize( wp_unslash( $meta_value ) );
+	$prev_value = maybe_serialize( wp_unslash( $prev_value ) );
     
     $table = $wpdb->base_prefix . 'global_postmeta';
     $data = array( 'meta_value' => $meta_value );
